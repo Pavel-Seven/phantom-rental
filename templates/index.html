@@ -24,18 +24,31 @@
 
     <header class="hero">
         <div class="hero-content">
+            <div class="hero-badge">Phantom Flex4K · 4K · 1000 FPS</div>
             <h2>{{ t.hero_title }}</h2>
             <p>{{ t.hero_desc }}</p>
-            <a href="#booking" class="btn-primary">{{ t.btn_book }}</a>
+            <div class="hero-actions">
+                <a href="#booking" class="btn-primary">{{ t.btn_book }}</a>
+                <a href="tel:+4915787815786" class="btn-secondary">📞 {{ t.hero_phone }}</a>
+            </div>
+            <div class="hero-stats">
+                <div class="stat"><span class="stat-num">1000</span><span class="stat-label">FPS</span></div>
+                <div class="stat-divider"></div>
+                <div class="stat"><span class="stat-num">4K</span><span class="stat-label">Auflösung</span></div>
+                <div class="stat-divider"></div>
+                <div class="stat"><span class="stat-num">Super35</span><span class="stat-label">Sensor</span></div>
+            </div>
         </div>
     </header>
 
     <main>
+        <!-- FEATURES -->
         <section id="about" class="section">
             <h2 class="section-title">{{ t.features_title }}</h2>
-            <div class="grid">
+            <div class="features-grid">
                 {% for feature in t.features %}
-                <div class="card">
+                <div class="feature-card">
+                    <div class="feature-icon">{{ feature.icon }}</div>
                     <h3>{{ feature.title }}</h3>
                     <p>{{ feature.desc }}</p>
                 </div>
@@ -43,27 +56,79 @@
             </div>
         </section>
 
-        <section id="equipment" class="section" style="background: rgba(28, 28, 30, 0.4);">
+        <!-- USE CASES -->
+        <section id="usecases" class="section section-dark">
+            <h2 class="section-title">{{ t.usecases_title }}</h2>
+            <p class="section-subtitle">{{ t.usecases_desc }}</p>
+            <div class="usecases-grid">
+                {% for uc in t.usecases %}
+                <div class="usecase-card">
+                    <div class="usecase-icon">{{ uc.icon }}</div>
+                    <h3>{{ uc.title }}</h3>
+                    <ul>
+                        {% for point in uc.points %}
+                        <li>{{ point }}</li>
+                        {% endfor %}
+                    </ul>
+                </div>
+                {% endfor %}
+            </div>
+        </section>
+
+        <!-- OFFER BANNER -->
+        <section class="section offer-banner">
+            <div class="offer-content">
+                <div class="offer-text">
+                    <h2>{{ t.offer_title }}</h2>
+                    <p>{{ t.offer_desc }}</p>
+                </div>
+                <a href="tel:+4915787815786" class="btn-primary">📞 +49 157 87815786</a>
+            </div>
+        </section>
+
+        <!-- EQUIPMENT -->
+        <section id="equipment" class="section">
             <h2 class="section-title">{{ t.equipment_title }}</h2>
-            <ul class="equipment-list">
+            <div class="equipment-grid">
                 {% for item in t.equipment %}
-                <li>{{ item }}</li>
+                <div class="equipment-item">
+                    <span class="equipment-check">✓</span>
+                    <span>{{ item }}</span>
+                </div>
                 {% endfor %}
-            </ul>
+            </div>
         </section>
 
-        <section id="specs" class="section">
+        <!-- SPECS -->
+        <section id="specs" class="section section-dark">
             <h2 class="section-title">{{ t.specs_title }}</h2>
-            <table class="specs-table">
-                {% for spec in t.specs %}
-                <tr>
-                    <td>{{ spec.label }}</td>
-                    <td>{{ spec.value }}</td>
-                </tr>
-                {% endfor %}
-            </table>
+            <div class="specs-container">
+                <div class="specs-block">
+                    <h3 class="specs-subtitle">{{ t.specs_fps_title }}</h3>
+                    <table class="specs-table">
+                        {% for spec in t.specs_fps %}
+                        <tr>
+                            <td>{{ spec.label }}</td>
+                            <td>{{ spec.value }}</td>
+                        </tr>
+                        {% endfor %}
+                    </table>
+                </div>
+                <div class="specs-block">
+                    <h3 class="specs-subtitle">{{ t.specs_imaging_title }}</h3>
+                    <table class="specs-table">
+                        {% for spec in t.specs_imaging %}
+                        <tr>
+                            <td>{{ spec.label }}</td>
+                            <td>{{ spec.value }}</td>
+                        </tr>
+                        {% endfor %}
+                    </table>
+                </div>
+            </div>
         </section>
 
+        <!-- BOOKING -->
         <section id="booking" class="section">
             <div class="booking-container">
                 <h2 style="text-align: center; margin-bottom: 1rem; font-size: 2rem;">{{ t.booking_title }}</h2>
@@ -77,18 +142,18 @@
 
                 <form action="/submit-order?lang={{ lang }}" method="post" class="booking-form">
                     <div class="form-group">
-                        <input type="text" name="name" class="form-control" placeholder="{{ t.form_name }}" required>
+                        <input type="text" name="name" id="form-name" class="form-control" placeholder="{{ t.form_name }}" required>
                     </div>
                     <div class="form-group">
-                        <input type="text" name="contact" class="form-control" placeholder="{{ t.form_contact }}" required>
+                        <input type="text" name="contact" id="form-contact" class="form-control" placeholder="{{ t.form_contact }}" required>
                     </div>
                     <div class="form-group">
-                        <input type="date" name="date" class="form-control" placeholder="{{ t.form_date }}">
+                        <input type="date" name="date" id="form-date" class="form-control" placeholder="{{ t.form_date }}">
                     </div>
                     <div class="form-group">
-                        <textarea name="comments" class="form-control" placeholder="{{ t.form_comment }}" rows="4"></textarea>
+                        <textarea name="comments" id="form-comments" class="form-control" placeholder="{{ t.form_comment }}" rows="4"></textarea>
                     </div>
-                    <button type="submit" class="btn-primary" style="width: 100%; border: none; border-radius: 12px; font-size: 1.1rem;">{{ t.btn_submit }}</button>
+                    <button type="submit" id="btn-submit" class="btn-primary" style="width: 100%; border: none; border-radius: 12px; font-size: 1.1rem;">{{ t.btn_submit }}</button>
                 </form>
             </div>
         </section>
