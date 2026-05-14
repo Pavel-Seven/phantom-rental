@@ -4,6 +4,39 @@ from fastapi.staticfiles import StaticFiles
 from fastapi.templating import Jinja2Templates
 from database import init_db, get_videos, add_video, add_order, get_orders
 from translations import translations
+import os
+import httpx
+from dotenv import load_dotenv
+
+load_dotenv()
+TELEGRAM_BOT_TOKEN = os.getenv("TELEGRAM_BOT_TOKEN")
+TELEGRAM_CHAT_ID = os.getenv("TELEGRAM_CHAT_ID")
+
+async def send_telegram_notification(name: str, contact: str, date: str, comments: str):
+    if not TELEGRAM_BOT_TOKEN or not TELEGRAM_CHAT_ID:
+        return
+        
+    text = (
+        f"🚨 <b>Новый заказ / New Booking!</b>\n\n"
+        f"<b>Имя:</b> {name}\n"
+        f"<b>Контакты:</b> {contact}\n"
+        f"<b>Даты:</b> {date}\n"
+        f"<b>Комментарий:</b> {comments}"
+    )
+    
+    url = f"https://api.telegram.org/bot{TELEGRAM_BOT_TOKEN}/sendMessage"
+    payload = {
+        "chat_id": TELEGRAM_CHAT_ID,
+        "text": text,
+        "parse_mode": "HTML"
+    }
+    
+    async with httpx.AsyncClient() as client:
+        try:
+            await client.post(url, json=payload)
+        except Exception as e:
+            print(f"Ошибка при отправке в Telegram: {e}")
+
 
 app = FastAPI()
 
@@ -37,6 +70,7 @@ async def handle_submit_order(
     comments: str = Form("")
 ):
     add_order(name, contact, date, comments)
+    await send_telegram_notification(name, contact, date, comments)
     lang = request.query_params.get("lang", "de")
     return RedirectResponse(url=f"/?lang={lang}&success=1#booking", status_code=303)
 
