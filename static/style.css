@@ -50,23 +50,54 @@ a { text-decoration: none; color: var(--text-main); transition: color 0.2s; }
 }
 .lang-switch a.active { background: var(--text-main); color: var(--bg-dark); }
 
+/* ─── ANIMATIONS ─── */
+@keyframes fadeUp {
+    from { opacity: 0; transform: translateY(30px); }
+    to   { opacity: 1; transform: translateY(0); }
+}
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to   { opacity: 1; }
+}
+@keyframes slideRight {
+    from { opacity: 0; transform: translateX(-24px); }
+    to   { opacity: 1; transform: translateX(0); }
+}
+
+.hero-badge   { animation: fadeIn 0.6s ease both; animation-delay: 0.1s; opacity: 0; animation-fill-mode: forwards; }
+.hero h2      { animation: fadeUp 0.7s ease both; animation-delay: 0.25s; opacity: 0; animation-fill-mode: forwards; }
+.hero p       { animation: fadeUp 0.7s ease both; animation-delay: 0.4s;  opacity: 0; animation-fill-mode: forwards; }
+.hero-actions { animation: fadeUp 0.7s ease both; animation-delay: 0.55s; opacity: 0; animation-fill-mode: forwards; }
+.hero-stats   { animation: fadeUp 0.7s ease both; animation-delay: 0.7s;  opacity: 0; animation-fill-mode: forwards; }
+
+/* scroll-reveal base */
+.reveal {
+    opacity: 0;
+    transform: translateY(28px);
+    transition: opacity 0.65s cubic-bezier(0.22,1,0.36,1), transform 0.65s cubic-bezier(0.22,1,0.36,1);
+}
+.reveal.visible {
+    opacity: 1;
+    transform: translateY(0);
+}
+
 /* ─── HERO ─── */
 .hero {
     min-height: 100vh;
     display: flex; align-items: center;
-    background: url('/static/hero-bg.jpg') no-repeat right center / 60% auto, var(--bg-dark);
+    background: url('/static/hero-bg.jpg') no-repeat center center / cover;
     position: relative;
 }
 .hero::before {
     content: ''; position: absolute; inset: 0;
-    background: linear-gradient(100deg, var(--bg-dark) 38%, rgba(10,10,12,0.75) 60%, rgba(10,10,12,0.2) 100%);
+    background: linear-gradient(105deg, rgba(10,10,12,0.92) 0%, rgba(10,10,12,0.72) 45%, rgba(10,10,12,0.15) 100%);
 }
 .hero-inner {
     position: relative; z-index: 2;
     width: 100%; max-width: 1200px; margin: 0 auto;
     padding: 0 5%;
 }
-.hero-content { max-width: 560px; text-align: left; }
+.hero-content { max-width: 580px; text-align: left; }
 
 .hero-badge {
     display: inline-block;
@@ -79,23 +110,24 @@ a { text-decoration: none; color: var(--text-main); transition: color 0.2s; }
     margin-bottom: 1.25rem;
 }
 .hero h2 {
-    font-size: clamp(2rem, 4vw, 3.4rem);
+    font-size: clamp(2.2rem, 4.5vw, 3.8rem);
     font-weight: 900; margin-bottom: 1.25rem;
-    line-height: 1.1;
+    line-height: 1.08;
 }
-.hero p { font-size: 1rem; color: var(--text-muted); margin-bottom: 2rem; max-width: 460px; line-height: 1.7; }
+.hero p { font-size: 1.05rem; color: var(--text-muted); margin-bottom: 2rem; max-width: 460px; line-height: 1.7; }
 .hero-actions { display: flex; gap: 1rem; flex-wrap: wrap; margin-bottom: 2.5rem; }
 
 .hero-stats {
     display: inline-flex; align-items: center; gap: 2rem;
-    background: rgba(255,255,255,0.05);
-    border: 1px solid var(--border-color);
+    background: rgba(255,255,255,0.06);
+    border: 1px solid rgba(255,255,255,0.1);
     border-radius: 14px; padding: 1rem 1.75rem;
+    backdrop-filter: blur(12px);
 }
 .stat { text-align: center; }
-.stat-num { display: block; font-size: 1.4rem; font-weight: 800; color: #fff; }
+.stat-num { display: block; font-size: 1.5rem; font-weight: 800; color: #fff; }
 .stat-label { font-size: 0.65rem; font-weight: 600; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.1em; }
-.stat-divider { width: 1px; height: 36px; background: var(--border-color); }
+.stat-divider { width: 1px; height: 36px; background: rgba(255,255,255,0.12); }
 
 /* ─── BUTTONS ─── */
 .btn-primary {
@@ -296,12 +328,9 @@ footer { text-align: center; padding: 2rem; color: var(--text-muted); font-size:
 
 /* ─── RESPONSIVE ─── */
 @media (max-width: 900px) {
-    .hero { background-size: 80% auto; }
-    .hero::before { background: linear-gradient(100deg, var(--bg-dark) 45%, rgba(10,10,12,0.85) 70%, rgba(10,10,12,0.4) 100%); }
+    .hero::before { background: linear-gradient(105deg, rgba(10,10,12,0.95) 0%, rgba(10,10,12,0.8) 55%, rgba(10,10,12,0.3) 100%); }
 }
 @media (max-width: 680px) {
-    .hero { background: url('/static/hero-bg.jpg') no-repeat center 30% / cover; }
-    .hero::before { background: linear-gradient(180deg, rgba(10,10,12,0.5) 0%, rgba(10,10,12,0.9) 60%, var(--bg-dark) 100%); }
     .hero-content { max-width: 100%; text-align: center; }
     .hero h2 { font-size: 2rem; }
     .hero-actions { justify-content: center; }
