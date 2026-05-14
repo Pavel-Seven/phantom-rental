@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Panel - Phantom</title>
+    <link rel="stylesheet" href="/static/style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;800&display=swap" rel="stylesheet">
+    <style>
+        .admin-container {
+            max-width: 500px;
+            margin: 100px auto;
+            background: var(--bg-card);
+            padding: 40px;
+            border-radius: 16px;
+            border: 1px solid var(--glass-border);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.5);
+        }
+        .admin-container h1 {
+            margin-bottom: 20px;
+            text-align: center;
+        }
+        .form-group {
+            margin-bottom: 20px;
+        }
+        .form-control {
+            width: 100%;
+            padding: 15px;
+            background: rgba(0, 0, 0, 0.5);
+            border: 1px solid #333;
+            border-radius: 8px;
+            color: var(--text-main);
+            font-family: 'Outfit', sans-serif;
+            font-size: 1rem;
+            transition: border-color 0.3s;
+        }
+        .form-control:focus {
+            outline: none;
+            border-color: var(--accent);
+        }
+        .btn-submit {
+            width: 100%;
+            padding: 15px;
+            background-color: var(--accent);
+            color: #fff;
+            border: none;
+            border-radius: 8px;
+            font-weight: 600;
+            font-size: 1.1rem;
+            cursor: pointer;
+            transition: background-color 0.3s, transform 0.2s;
+        }
+        .btn-submit:hover {
+            background-color: var(--accent-hover);
+            transform: translateY(-2px);
+        }
+        .back-link {
+            display: block;
+            text-align: center;
+            margin-top: 20px;
+            color: var(--text-muted);
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+        .back-link:hover {
+            color: var(--text-main);
+        }
+    </style>
+</head>
+<body>
+    <div class="admin-container">
+        <h1>Добавить новое видео</h1>
+        <form action="/admin/add" method="post">
+            <div class="form-group">
+                <input type="text" name="title" class="form-control" placeholder="Название видео" required>
+            </div>
+            <div class="form-group">
+                <input type="text" name="url" class="form-control" placeholder="Имя файла (например, video3.mp4)" required>
+            </div>
+            <button type="submit" class="btn-submit">Добавить в базу</button>
+        </form>
+        <a href="/" class="back-link">← Вернуться на главную</a>
+    </div>
+</body>
+</html>
