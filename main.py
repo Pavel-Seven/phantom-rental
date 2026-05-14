@@ -2,7 +2,8 @@ from fastapi import FastAPI, Request, Form
 from fastapi.responses import HTMLResponse, RedirectResponse
 from fastapi.staticfiles import StaticFiles
 from fastapi.templating import Jinja2Templates
-from database import init_db, get_videos, add_video, add_order, get_orders # Импортируем базу
+from database import init_db, get_videos, add_video, add_order, get_orders
+from translations import translations
 
 app = FastAPI()
 
@@ -14,31 +15,33 @@ app.mount("/static", StaticFiles(directory="static"), name="static")
 templates = Jinja2Templates(directory="templates")
 
 @app.get("/", response_class=HTMLResponse)
-async def read_root(request: Request):
-    # Данные для галереи
-    videos_from_db = get_videos()
-    # Проверяем, пришел ли пользователь после отправки заявки
+async def read_root(request: Request, lang: str = "de"):
+    if lang not in translations:
+        lang = "de"
+        
+    t = translations[lang]
     success = request.query_params.get("success")
+    
     return templates.TemplateResponse(
         request=request, 
         name="index.html", 
-        context={"videos": videos_from_db, "success": success}
+        context={"t": t, "lang": lang, "success": success}
     )
 
 @app.post("/submit-order")
 async def handle_submit_order(
+    request: Request,
     name: str = Form(...), 
     contact: str = Form(...), 
     date: str = Form(""), 
     comments: str = Form("")
 ):
     add_order(name, contact, date, comments)
-    # Возвращаем пользователя на главную с параметром success=1
-    return RedirectResponse(url="/?success=1#booking-form", status_code=303)
+    lang = request.query_params.get("lang", "de")
+    return RedirectResponse(url=f"/?lang={lang}&success=1#booking", status_code=303)
 
 @app.get("/admin", response_class=HTMLResponse)
 async def admin_page(request: Request):
-    # Получаем заявки для отображения
     orders = get_orders()
     return templates.TemplateResponse(request=request, name="admin.html", context={"orders": orders})
 

@@ -1,91 +1,101 @@
 <!DOCTYPE html>
-<html lang="ru">
+<html lang="{{ lang }}">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Аренда высокоскоростных камер Phantom Flex4K</title>
-    <meta name="description" content="Профессиональная аренда высокоскоростных камер Phantom Flex4K для кинематографических съемок. Снимайте за гранью возможного до 1000 кадров в секунду.">
-    <meta property="og:title" content="Аренда Phantom Flex4K">
-    <meta property="og:description" content="Премиальная аренда камер для высокоскоростной съемки. Удивите зрителей невероятными кадрами.">
-    <meta property="og:type" content="website">
+    <title>{{ t.hero_title }}</title>
+    <meta name="description" content="{{ t.hero_desc }}">
     <link rel="stylesheet" href="/static/style.css">
-    <!-- Google Fonts for modern typography -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;800&family=Space+Mono:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
 </head>
 <body>
     <nav class="navbar">
-        <h1 class="logo">PHANTOM RENTAL</h1>
+        <h1 class="logo">RENT A PHANTOM</h1>
         <ul class="nav-links">
-            <li><a href="#" class="active">Главная</a></li>
-            <li><a href="#">Видео</a></li>
-            <li><a href="#">Оборудование</a></li>
-            <li><a href="#">Контакты</a></li>
+            <li><a href="#">{{ t.nav_home }}</a></li>
+            <li><a href="#about">{{ t.nav_about }}</a></li>
+            <li><a href="#equipment">{{ t.nav_equipment }}</a></li>
+            <li><a href="#booking">{{ t.nav_contact }}</a></li>
+            <li class="lang-switch">
+                <a href="/?lang=de" class="{% if lang == 'de' %}active{% endif %}">DE</a>
+                <a href="/?lang=en" class="{% if lang == 'en' %}active{% endif %}">EN</a>
+            </li>
         </ul>
     </nav>
 
     <header class="hero">
         <div class="hero-content">
-            <h2>Снимайте за гранью возможного</h2>
-            <p>Аренда высокоскоростных камер Phantom Flex4K для ваших лучших кадров.</p>
-            <a href="#booking-form" class="btn-primary">Забронировать</a>
+            <h2>{{ t.hero_title }}</h2>
+            <p>{{ t.hero_desc }}</p>
+            <a href="#booking" class="btn-primary">{{ t.btn_book }}</a>
         </div>
     </header>
 
-    <main class="gallery-section">
-        <div class="section-header">
-            <h2>Наши Работы</h2>
-            <p>Примеры съемок в 1000 кадров в секунду</p>
-        </div>
-        <div class="video-grid">
-            {% for video in videos %}
-            <div class="video-item">
-                <div class="video-wrapper">
-                    <video autoplay muted loop playsinline style="width: 100%; height: 100%; object-fit: cover; position: absolute; top: 0; left: 0;">
-                        <source src="/static/{{ video.url }}" type="video/mp4">
-                    </video>
+    <main>
+        <section id="about" class="section">
+            <h2 class="section-title">{{ t.features_title }}</h2>
+            <div class="grid">
+                {% for feature in t.features %}
+                <div class="card">
+                    <h3>{{ feature.title }}</h3>
+                    <p>{{ feature.desc }}</p>
                 </div>
-                <div class="video-info">
-                    <h3>{{ video.title }}</h3>
-                    <p>Phantom Flex4K, 1000fps</p>
-                </div>
+                {% endfor %}
             </div>
-            {% endfor %}
-        </div>
+        </section>
+
+        <section id="equipment" class="section" style="background: rgba(28, 28, 30, 0.4);">
+            <h2 class="section-title">{{ t.equipment_title }}</h2>
+            <ul class="equipment-list">
+                {% for item in t.equipment %}
+                <li>{{ item }}</li>
+                {% endfor %}
+            </ul>
+        </section>
+
+        <section id="specs" class="section">
+            <h2 class="section-title">{{ t.specs_title }}</h2>
+            <table class="specs-table">
+                {% for spec in t.specs %}
+                <tr>
+                    <td>{{ spec.label }}</td>
+                    <td>{{ spec.value }}</td>
+                </tr>
+                {% endfor %}
+            </table>
+        </section>
+
+        <section id="booking" class="section">
+            <div class="booking-container">
+                <h2 style="text-align: center; margin-bottom: 1rem; font-size: 2rem;">{{ t.booking_title }}</h2>
+                <p style="text-align: center; color: var(--text-muted); margin-bottom: 2rem;">{{ t.booking_desc }}</p>
+                
+                {% if success %}
+                <div class="success-message">
+                    {{ t.success_msg }}
+                </div>
+                {% endif %}
+
+                <form action="/submit-order?lang={{ lang }}" method="post" class="booking-form">
+                    <div class="form-group">
+                        <input type="text" name="name" class="form-control" placeholder="{{ t.form_name }}" required>
+                    </div>
+                    <div class="form-group">
+                        <input type="text" name="contact" class="form-control" placeholder="{{ t.form_contact }}" required>
+                    </div>
+                    <div class="form-group">
+                        <input type="date" name="date" class="form-control" placeholder="{{ t.form_date }}">
+                    </div>
+                    <div class="form-group">
+                        <textarea name="comments" class="form-control" placeholder="{{ t.form_comment }}" rows="4"></textarea>
+                    </div>
+                    <button type="submit" class="btn-primary" style="width: 100%; border: none; border-radius: 12px; font-size: 1.1rem;">{{ t.btn_submit }}</button>
+                </form>
+            </div>
+        </section>
     </main>
 
-    <section id="booking-form" class="booking-section">
-        <div class="booking-container">
-            <h2>Оставить заявку на аренду</h2>
-            <p>Заполните форму ниже, и мы свяжемся с вами для обсуждения деталей съемок.</p>
-            
-            {% if success %}
-            <div class="success-message">
-                ✅ Спасибо! Ваша заявка успешно отправлена. Мы скоро свяжемся с вами.
-            </div>
-            {% endif %}
-
-            <form action="/submit-order" method="post" class="booking-form">
-                <div class="form-group">
-                    <input type="text" name="name" class="form-control" placeholder="Ваше Имя / Название проекта" required>
-                </div>
-                <div class="form-group">
-                    <input type="text" name="contact" class="form-control" placeholder="Телефон или Email для связи" required>
-                </div>
-                <div class="form-group">
-                    <input type="date" name="date" class="form-control" placeholder="Планируемая дата съемок">
-                </div>
-                <div class="form-group">
-                    <textarea name="comments" class="form-control" placeholder="Дополнительные комментарии или вопросы" rows="4"></textarea>
-                </div>
-                <button type="submit" class="btn-primary" style="width: 100%; border: none; cursor: pointer;">Отправить заявку</button>
-            </form>
-        </div>
-    </section>
-
     <footer>
-        <p>&copy; 2026 Phantom Rental. Все права защищены.</p>
+        <p>&copy; 2026 Rent a Phantom. All rights reserved.</p>
     </footer>
 </body>
 </html>
