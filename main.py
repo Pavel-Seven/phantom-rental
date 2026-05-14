@@ -74,6 +74,14 @@ async def handle_submit_order(
     lang = request.query_params.get("lang", "de")
     return RedirectResponse(url=f"/?lang={lang}&success=1#booking", status_code=303)
 
+@app.get("/impressum", response_class=HTMLResponse)
+async def impressum_page(request: Request):
+    return templates.TemplateResponse(request=request, name="impressum.html", context={})
+
+@app.get("/datenschutz", response_class=HTMLResponse)
+async def datenschutz_page(request: Request):
+    return templates.TemplateResponse(request=request, name="datenschutz.html", context={})
+
 @app.get("/admin", response_class=HTMLResponse)
 async def admin_page(request: Request):
     orders = get_orders()

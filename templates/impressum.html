@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Impressum – Rent a Phantom</title>
+    <meta name="description" content="Impressum von Rent a Phantom – Franz Xaver Koch, München">
+    <link rel="stylesheet" href="/static/style.css">
+    <style>
+        .legal-page {
+            max-width: 860px;
+            margin: 0 auto;
+            padding: 120px 2rem 80px;
+        }
+        .legal-page h1 {
+            font-size: 2.8rem;
+            font-weight: 800;
+            margin-bottom: 2.5rem;
+            background: linear-gradient(135deg, #fff 0%, #aaa 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        .impressum-card {
+            display: flex;
+            align-items: flex-start;
+            gap: 3rem;
+            background: rgba(255,255,255,0.04);
+            border: 1px solid rgba(255,255,255,0.08);
+            border-radius: 20px;
+            padding: 2.5rem;
+            margin-bottom: 2.5rem;
+        }
+        .impressum-photo {
+            flex-shrink: 0;
+            width: 180px;
+            height: 180px;
+            border-radius: 50%;
+            object-fit: cover;
+            object-position: top center;
+            border: 3px solid rgba(255,255,255,0.15);
+            box-shadow: 0 8px 32px rgba(0,0,0,0.5);
+        }
+        .impressum-info h2 {
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+            color: #fff;
+        }
+        .impressum-info p {
+            color: var(--text-muted);
+            line-height: 1.8;
+            margin: 0;
+        }
+        .impressum-info a {
+            color: #e50914;
+            text-decoration: none;
+        }
+        .impressum-info a:hover {
+            text-decoration: underline;
+        }
+        .legal-section {
+            background: rgba(255,255,255,0.03);
+            border: 1px solid rgba(255,255,255,0.07);
+            border-radius: 16px;
+            padding: 2rem 2.5rem;
+            margin-bottom: 1.5rem;
+        }
+        .legal-section h3 {
+            font-size: 1rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+            color: rgba(255,255,255,0.4);
+            margin-bottom: 0.75rem;
+        }
+        .legal-section p {
+            color: var(--text-muted);
+            line-height: 1.8;
+            margin: 0;
+        }
+        .back-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            color: rgba(255,255,255,0.5);
+            text-decoration: none;
+            font-size: 0.9rem;
+            margin-bottom: 2rem;
+            transition: color 0.2s;
+        }
+        .back-link:hover { color: #fff; }
+        @media (max-width: 600px) {
+            .impressum-card { flex-direction: column; align-items: center; text-align: center; }
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar">
+        <h1 class="logo">RENT A PHANTOM</h1>
+        <ul class="nav-links">
+            <li><a href="/?lang=de">Startseite</a></li>
+            <li><a href="/impressum" class="active">Impressum</a></li>
+            <li><a href="/datenschutz">Datenschutz</a></li>
+        </ul>
+    </nav>
+
+    <main>
+        <div class="legal-page">
+            <a href="/" class="back-link">← Zurück zur Startseite</a>
+            <h1>Impressum</h1>
+
+            <div class="impressum-card">
+                <img src="/static/franz.jpg" alt="Franz Xaver Koch" class="impressum-photo">
+                <div class="impressum-info">
+                    <h2>Franz Xaver Koch</h2>
+                    <p>
+                        Rentaphantom<br>
+                        Eversbuschstrasse 235<br>
+                        80999 München<br><br>
+                        <strong>Steuernummer:</strong> 145/134/50959<br>
+                        <strong>USt-IdNr.:</strong> DE360161657<br><br>
+                        <strong>E-Mail:</strong> <a href="mailto:franz@rentaphantom.de">franz@rentaphantom.de</a><br>
+                        <strong>Mobil:</strong> <a href="tel:+4915787815786">+49 157 87815786</a>
+                    </p>
+                </div>
+            </div>
+
+            <div class="legal-section">
+                <h3>Verantwortlich für den Inhalt</h3>
+                <p>Franz Xaver Koch, Eversbuschstrasse 235, 80999 München</p>
+            </div>
+
+            <div class="legal-section">
+                <h3>Haftungsausschluss</h3>
+                <p>Die Inhalte dieser Website wurden mit größtmöglicher Sorgfalt erstellt. Für die Richtigkeit, Vollständigkeit und Aktualität der Inhalte können wir jedoch keine Gewähr übernehmen. Als Diensteanbieter sind wir gemäß § 7 Abs.1 TMG für eigene Inhalte auf diesen Seiten nach den allgemeinen Gesetzen verantwortlich.</p>
+            </div>
+
+            <div class="legal-section">
+                <h3>Urheberrecht</h3>
+                <p>Die durch die Seitenbetreiber erstellten Inhalte und Werke auf diesen Seiten unterliegen dem deutschen Urheberrecht. Die Vervielfältigung, Bearbeitung, Verbreitung und jede Art der Verwertung außerhalb der Grenzen des Urheberrechtes bedürfen der schriftlichen Zustimmung des jeweiligen Autors bzw. Erstellers.</p>
+            </div>
+        </div>
+    </main>
+
+    <footer>
+        <p>© 2026 Rent a Phantom. All rights reserved. &nbsp;|&nbsp;
+           <a href="/impressum" style="color: rgba(255,255,255,0.4); text-decoration: none;">Impressum</a> &nbsp;|&nbsp;
+           <a href="/datenschutz" style="color: rgba(255,255,255,0.4); text-decoration: none;">Datenschutz</a>
+        </p>
+    </footer>
+</body>
+</html>
