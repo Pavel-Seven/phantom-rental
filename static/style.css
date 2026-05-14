@@ -1,12 +1,12 @@
 :root {
-    --bg-dark: #0a0a0a;
-    --bg-card: #151515;
-    --text-main: #f0f0f0;
-    --text-muted: #a0a0a0;
-    --accent: #e50914; /* Cinematic red */
-    --accent-hover: #ff1e27;
-    --glass-bg: rgba(20, 20, 20, 0.7);
-    --glass-border: rgba(255, 255, 255, 0.05);
+    --bg-dark: #050505;
+    --bg-card: #0a0a0a;
+    --bg-panel: #111111;
+    --accent-cyan: #00f3ff;
+    --accent-red: #ff003c;
+    --text-main: #ffffff;
+    --text-muted: #888888;
+    --grid-line: rgba(0, 243, 255, 0.1);
 }
 
 * {
@@ -20,173 +20,209 @@ html {
 }
 
 body {
-    font-family: 'Outfit', sans-serif;
+    font-family: 'Space Mono', monospace; /* Default to monospace for cyberpunk feel */
     background-color: var(--bg-dark);
     color: var(--text-main);
     line-height: 1.6;
     overflow-x: hidden;
+    /* Subtle grid background for the whole page */
+    background-image: linear-gradient(var(--grid-line) 1px, transparent 1px),
+                      linear-gradient(90deg, var(--grid-line) 1px, transparent 1px);
+    background-size: 50px 50px;
+}
+
+/* Headings use Outfit for clean tech readability, everything else Space Mono */
+h1, h2, h3, h4, h5, h6 {
+    font-family: 'Outfit', sans-serif;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+}
+
+a {
+    text-decoration: none;
+    color: var(--text-main);
+    transition: color 0.3s;
 }
 
 /* Navbar */
 .navbar {
-    position: fixed;
-    top: 0;
-    width: 100%;
     display: flex;
     justify-content: space-between;
     align-items: center;
     padding: 1.5rem 5%;
-    background: var(--glass-bg);
-    backdrop-filter: blur(12px);
-    -webkit-backdrop-filter: blur(12px);
-    border-bottom: 1px solid var(--glass-border);
+    background: rgba(5, 5, 5, 0.9);
+    border-bottom: 1px solid var(--accent-cyan);
+    position: fixed;
+    width: 100%;
+    top: 0;
     z-index: 1000;
 }
 
 .logo {
     font-size: 1.5rem;
     font-weight: 800;
-    letter-spacing: 2px;
-    background: linear-gradient(90deg, #fff, #888);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
+    color: var(--text-main);
+    text-shadow: 0 0 5px var(--accent-cyan);
 }
 
 .nav-links {
-    display: flex;
     list-style: none;
+    display: flex;
     gap: 2rem;
 }
 
 .nav-links a {
-    color: var(--text-muted);
-    text-decoration: none;
     font-weight: 600;
-    font-size: 0.95rem;
-    transition: color 0.3s ease;
+    font-size: 0.9rem;
+    position: relative;
+    padding-bottom: 5px;
+    text-transform: uppercase;
 }
 
-.nav-links a:hover, .nav-links a.active {
-    color: var(--text-main);
+.nav-links a::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 0%;
+    height: 2px;
+    background-color: var(--accent-red);
+    transition: width 0.3s ease;
+}
+
+.nav-links a:hover::after, .nav-links a.active::after {
+    width: 100%;
+}
+
+.nav-links a:hover {
+    color: var(--accent-cyan);
 }
 
 /* Hero Section */
 .hero {
-    height: 60vh;
+    height: 100vh;
     display: flex;
     align-items: center;
     justify-content: center;
     text-align: center;
-    background: radial-gradient(circle at center, #1a1a1a 0%, var(--bg-dark) 100%);
-    margin-top: 4rem;
-    padding: 0 1rem;
+    padding: 0 5%;
+    margin-top: 0;
+    position: relative;
+    /* Hero Background Image */
+    background: url('/static/hero-bg.jpg') no-repeat center center/cover;
 }
 
-.hero-content h2 {
+/* Dark overlay to make text readable */
+.hero::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0; bottom: 0;
+    background: linear-gradient(rgba(5, 5, 5, 0.5), rgba(5, 5, 5, 0.95));
+    z-index: 1;
+}
+
+.hero-content {
+    position: relative;
+    z-index: 2;
+    max-width: 800px;
+}
+
+.hero h2 {
     font-size: 3.5rem;
-    font-weight: 800;
     margin-bottom: 1rem;
-    line-height: 1.2;
+    color: #fff;
+    text-shadow: 2px 2px 0px var(--accent-red), -2px -2px 0px var(--accent-cyan);
 }
 
-.hero-content p {
+.hero p {
     font-size: 1.2rem;
+    margin-bottom: 2rem;
     color: var(--text-muted);
-    margin-bottom: 2.5rem;
-    max-width: 600px;
-    margin-left: auto;
-    margin-right: auto;
 }
 
+/* Cyberpunk Button */
 .btn-primary {
     display: inline-block;
     padding: 1rem 2.5rem;
-    background-color: var(--accent);
-    color: #fff;
-    text-decoration: none;
-    border-radius: 50px;
-    font-weight: 600;
-    letter-spacing: 1px;
-    transition: all 0.3s ease;
-    box-shadow: 0 4px 15px rgba(229, 9, 20, 0.4);
+    background-color: var(--bg-dark);
+    color: var(--accent-cyan);
+    font-weight: 700;
+    text-transform: uppercase;
+    border: 2px solid var(--accent-cyan);
+    position: relative;
+    transition: all 0.2s;
+    font-family: 'Space Mono', monospace;
+    cursor: pointer;
+    box-shadow: 0 0 10px rgba(0, 243, 255, 0.2), inset 0 0 10px rgba(0, 243, 255, 0.1);
 }
 
 .btn-primary:hover {
-    background-color: var(--accent-hover);
-    transform: translateY(-2px);
-    box-shadow: 0 6px 20px rgba(229, 9, 20, 0.6);
+    background-color: var(--accent-cyan);
+    color: var(--bg-dark);
+    box-shadow: 0 0 20px var(--accent-cyan);
+}
+
+.btn-primary::before {
+    content: '';
+    position: absolute;
+    top: -2px; left: -2px; right: -2px; bottom: -2px;
+    border: 1px solid var(--accent-red);
+    z-index: -1;
+    transform: translate(5px, 5px);
+    transition: transform 0.2s;
+}
+
+.btn-primary:hover::before {
+    transform: translate(0, 0);
 }
 
 /* Gallery Section */
 .gallery-section {
     padding: 5rem 5%;
-    max-width: 1400px;
-    margin: 0 auto;
+    position: relative;
 }
 
 .section-header {
-    margin-bottom: 3rem;
+    text-align: center;
+    margin-bottom: 4rem;
 }
 
 .section-header h2 {
     font-size: 2.5rem;
-    font-weight: 800;
-}
-
-.section-header p {
-    color: var(--text-muted);
-    font-size: 1.1rem;
+    color: var(--text-main);
+    display: inline-block;
+    border-bottom: 2px solid var(--accent-red);
+    padding-bottom: 10px;
 }
 
 .video-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
     gap: 2rem;
 }
 
 .video-item {
     background: var(--bg-card);
-    border-radius: 16px;
+    border: 1px solid var(--accent-cyan);
+    position: relative;
     overflow: hidden;
-    border: 1px solid var(--glass-border);
-    transition: transform 0.4s ease, box-shadow 0.4s ease;
 }
 
-.video-item:hover {
-    transform: translateY(-10px);
-    box-shadow: 0 15px 30px rgba(0, 0, 0, 0.5);
-    border-color: rgba(255, 255, 255, 0.1);
+/* Cyberpunk decorative corner */
+.video-item::after {
+    content: '';
+    position: absolute;
+    bottom: 0; right: 0;
+    width: 20px; height: 20px;
+    background: var(--accent-red);
+    clip-path: polygon(100% 0, 100% 100%, 0 100%);
 }
 
 .video-wrapper {
     position: relative;
-    width: 100%;
-    padding-top: 56.25%; /* 16:9 aspect ratio */
-    background-color: #000;
-    overflow: hidden;
-}
-
-.video-placeholder {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    background: linear-gradient(45deg, #111, #222);
-}
-
-.play-icon {
-    font-size: 3rem;
-    color: rgba(255, 255, 255, 0.7);
-    transition: all 0.3s ease;
-}
-
-.video-item:hover .play-icon {
-    color: var(--accent);
-    transform: scale(1.1);
+    padding-top: 56.25%; /* 16:9 Aspect Ratio */
+    background: #000;
+    border-bottom: 1px solid var(--border-color);
 }
 
 .video-info {
@@ -194,9 +230,9 @@ body {
 }
 
 .video-info h3 {
-    font-size: 1.25rem;
-    font-weight: 600;
+    font-size: 1.2rem;
     margin-bottom: 0.5rem;
+    color: var(--accent-cyan);
 }
 
 .video-info p {
@@ -207,28 +243,47 @@ body {
 /* Booking Section */
 .booking-section {
     padding: 5rem 5%;
-    background-color: var(--bg-dark);
+    background-color: var(--bg-panel);
+    border-top: 1px dashed var(--border-color);
+    border-bottom: 1px dashed var(--border-color);
 }
 
 .booking-container {
     max-width: 600px;
     margin: 0 auto;
-    background: var(--bg-card);
+    background: var(--bg-dark);
     padding: 3rem;
-    border-radius: 16px;
-    border: 1px solid var(--glass-border);
-    box-shadow: 0 15px 30px rgba(0, 0, 0, 0.5);
+    border: 1px solid var(--accent-red);
     text-align: center;
+    position: relative;
+}
+
+/* Decorative box brackets */
+.booking-container::before, .booking-container::after {
+    content: '';
+    position: absolute;
+    width: 20px; height: 20px;
+    border: 2px solid var(--accent-cyan);
+}
+.booking-container::before {
+    top: -2px; left: -2px;
+    border-right: none; border-bottom: none;
+}
+.booking-container::after {
+    bottom: -2px; right: -2px;
+    border-left: none; border-top: none;
 }
 
 .booking-container h2 {
     font-size: 2rem;
     margin-bottom: 1rem;
+    color: var(--accent-red);
 }
 
 .booking-container p {
     color: var(--text-muted);
     margin-bottom: 2rem;
+    font-size: 0.9rem;
 }
 
 .booking-form .form-group {
@@ -238,35 +293,62 @@ body {
 .booking-form .form-control {
     width: 100%;
     padding: 1rem;
-    background: rgba(0, 0, 0, 0.5);
-    border: 1px solid #333;
-    border-radius: 8px;
-    color: var(--text-main);
-    font-family: 'Outfit', sans-serif;
+    background: #000;
+    border: 1px solid var(--border-color);
+    color: var(--accent-cyan);
+    font-family: 'Space Mono', monospace;
     font-size: 1rem;
-    transition: border-color 0.3s;
+    transition: all 0.3s;
 }
 
 .booking-form .form-control:focus {
     outline: none;
-    border-color: var(--accent);
+    border-color: var(--accent-cyan);
+    box-shadow: 0 0 10px rgba(0, 243, 255, 0.2);
+}
+
+.booking-form .form-control::placeholder {
+    color: #444;
 }
 
 .success-message {
-    background-color: rgba(46, 204, 113, 0.1);
-    border: 1px solid #2ecc71;
-    color: #2ecc71;
+    background-color: rgba(0, 243, 255, 0.1);
+    border: 1px solid var(--accent-cyan);
+    color: var(--accent-cyan);
     padding: 1rem;
-    border-radius: 8px;
     margin-bottom: 2rem;
     font-weight: 600;
+    text-transform: uppercase;
 }
 
 /* Footer */
 footer {
     text-align: center;
-    padding: 3rem 1rem;
-    border-top: 1px solid var(--glass-border);
+    padding: 2rem;
+    background-color: var(--bg-dark);
     color: var(--text-muted);
-    margin-top: 2rem;
+    border-top: 1px solid var(--border-color);
+    font-size: 0.8rem;
+    text-transform: uppercase;
 }
+
+/* Admin specific overrides */
+.admin-container {
+    max-width: 800px;
+    margin: 100px auto;
+    background: var(--bg-panel);
+    padding: 3rem;
+    border: 1px solid var(--accent-cyan);
+}
+.admin-container h1 { color: var(--accent-cyan); text-align: center; margin-bottom: 2rem; }
+.admin-container .form-control { margin-bottom: 1rem; }
+.btn-submit {
+    display: block; width: 100%; padding: 1rem;
+    background: var(--accent-red); color: #fff;
+    border: none; font-weight: bold; cursor: pointer;
+    font-family: 'Space Mono', monospace;
+    text-transform: uppercase; margin-bottom: 1rem;
+}
+.btn-submit:hover { background: #d00030; }
+.back-link { color: var(--accent-cyan); display: block; text-align: center; }
+.back-link:hover { text-decoration: underline; }
