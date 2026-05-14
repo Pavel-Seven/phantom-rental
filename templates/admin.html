@@ -82,6 +82,29 @@
             <button type="submit" class="btn-submit">Добавить в базу</button>
         </form>
         <a href="/" class="back-link">← Вернуться на главную</a>
+
+        <div style="margin-top: 50px; padding-top: 30px; border-top: 1px solid var(--glass-border);">
+            <h2 style="text-align: center; margin-bottom: 20px;">Новые заявки (Лиды)</h2>
+            {% if orders %}
+                <div style="display: flex; flex-direction: column; gap: 15px;">
+                {% for order in orders %}
+                    <div style="background: rgba(0,0,0,0.3); border: 1px solid #333; padding: 15px; border-radius: 8px;">
+                        <div style="color: var(--accent); font-size: 0.8rem; margin-bottom: 5px;">{{ order.created_at }}</div>
+                        <strong>Имя:</strong> {{ order.name }}<br>
+                        <strong>Контакт:</strong> {{ order.contact }}<br>
+                        <strong>Дата съемок:</strong> {{ order.date if order.date else "Не указана" }}<br>
+                        {% if order.comments %}
+                        <div style="margin-top: 10px; color: var(--text-muted); font-size: 0.9rem;">
+                            <em>«{{ order.comments }}»</em>
+                        </div>
+                        {% endif %}
+                    </div>
+                {% endfor %}
+                </div>
+            {% else %}
+                <p style="text-align: center; color: var(--text-muted);">Пока нет ни одной заявки.</p>
+            {% endif %}
+        </div>
     </div>
 </body>
 </html>

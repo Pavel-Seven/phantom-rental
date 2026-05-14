@@ -3,7 +3,11 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Rent a Phantom - My Version</title>
+    <title>Аренда высокоскоростных камер Phantom Flex4K</title>
+    <meta name="description" content="Профессиональная аренда высокоскоростных камер Phantom Flex4K для кинематографических съемок. Снимайте за гранью возможного до 1000 кадров в секунду.">
+    <meta property="og:title" content="Аренда Phantom Flex4K">
+    <meta property="og:description" content="Премиальная аренда камер для высокоскоростной съемки. Удивите зрителей невероятными кадрами.">
+    <meta property="og:type" content="website">
     <link rel="stylesheet" href="/static/style.css">
     <!-- Google Fonts for modern typography -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -25,7 +29,7 @@
         <div class="hero-content">
             <h2>Снимайте за гранью возможного</h2>
             <p>Аренда высокоскоростных камер Phantom Flex4K для ваших лучших кадров.</p>
-            <a href="#" class="btn-primary">Забронировать</a>
+            <a href="#booking-form" class="btn-primary">Забронировать</a>
         </div>
     </header>
 
@@ -50,6 +54,35 @@
             {% endfor %}
         </div>
     </main>
+
+    <section id="booking-form" class="booking-section">
+        <div class="booking-container">
+            <h2>Оставить заявку на аренду</h2>
+            <p>Заполните форму ниже, и мы свяжемся с вами для обсуждения деталей съемок.</p>
+            
+            {% if success %}
+            <div class="success-message">
+                ✅ Спасибо! Ваша заявка успешно отправлена. Мы скоро свяжемся с вами.
+            </div>
+            {% endif %}
+
+            <form action="/submit-order" method="post" class="booking-form">
+                <div class="form-group">
+                    <input type="text" name="name" class="form-control" placeholder="Ваше Имя / Название проекта" required>
+                </div>
+                <div class="form-group">
+                    <input type="text" name="contact" class="form-control" placeholder="Телефон или Email для связи" required>
+                </div>
+                <div class="form-group">
+                    <input type="date" name="date" class="form-control" placeholder="Планируемая дата съемок">
+                </div>
+                <div class="form-group">
+                    <textarea name="comments" class="form-control" placeholder="Дополнительные комментарии или вопросы" rows="4"></textarea>
+                </div>
+                <button type="submit" class="btn-primary" style="width: 100%; border: none; cursor: pointer;">Отправить заявку</button>
+            </form>
+        </div>
+    </section>
 
     <footer>
         <p>&copy; 2026 Phantom Rental. Все права защищены.</p>
